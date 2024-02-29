@@ -75,6 +75,7 @@ from ..constants import (
 )
 from .losses import BBCEWithLogitLoss, FocalLoss, MultiNegativesSoftmaxLoss, SoftTargetCrossEntropy, StructureLoss
 from .lr_scheduler import (
+    get_constant_schedule_with_warmup,
     get_cosine_schedule_with_warmup,
     get_linear_schedule_with_warmup,
     get_polynomial_decay_schedule_with_warmup,
@@ -444,6 +445,11 @@ def get_lr_scheduler(
     elif lr_schedule == "multi_step":
         # TODO: add milestones, gamma into hyperparameters
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer=optimizer, milestones=[30, 55], gamma=0.1)
+    elif lr_schedule == "constant":
+        scheduler = get_constant_schedule_with_warmup(
+            optimizer=optimizer,
+            num_warmup_steps=num_warmup_steps,
+        )
     else:
         raise ValueError(f"unknown lr schedule: {lr_schedule}")
 
