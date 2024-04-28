@@ -48,7 +48,7 @@ extras_require = {
         "xgboost>=1.6,<1.8",
     ],
     "fastai": [
-        "torch>=1.9,<1.14",
+        "torch",
         "fastai>=2.3.1,<2.8",
     ],
     "tabpfn": [
@@ -62,20 +62,20 @@ extras_require = {
         "scikit-learn-intelex>=2021.7,<2023.2",
     ],
     "imodels": [
-        "imodels>=1.3.10,<1.4.0",  # 1.3.8/1.3.9 either remove/renamed attribute `complexity_` causing failures. https://github.com/csinva/imodels/issues/147
+        "imodels",  # 1.3.8/1.3.9 either remove/renamed attribute `complexity_` causing failures. https://github.com/csinva/imodels/issues/147
     ],
     "vowpalwabbit": [
         # FIXME: 9.5+ causes VW to save an empty model which always predicts 0. Confirmed on MacOS (Intel CPU). Unknown how to fix.
         "vowpalwabbit>=9,<9.5",
     ],
     "skl2onnx": [
-        "skl2onnx>=1.13.0,<1.14.0",
+        "skl2onnx>=1.15.0,<1.16.0",
         # For macOS, there isn't a onnxruntime-gpu package installed with skl2onnx.
         # Therefore, we install onnxruntime explicitly here just for macOS.
-        "onnxruntime>=1.13.0,<1.14.0",
+        "onnxruntime>=1.15.0,<1.16.0",
     ]
     if sys.platform == "darwin"
-    else ["skl2onnx>=1.13.0,<1.14.0", "onnxruntime-gpu>=1.13.0,<1.14.0"],
+    else ["skl2onnx>=1.15.0,<1.16.0", "onnxruntime-gpu>=1.15.0,<1.16.0"],
 }
 
 # TODO: v1.0: Rename `all` to `core`, make `all` contain everything.

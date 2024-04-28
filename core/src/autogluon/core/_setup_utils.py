@@ -20,7 +20,7 @@ DEPENDENT_PACKAGES = {
     "boto3": ">=1.10,<2",  # <2 because unlikely to introduce breaking changes in minor releases. >=1.10 because 1.10 is 3 years old, no need to support older
     "numpy": ">=1.21,<1.27",  # "<{N+3}" upper cap, where N is the latest released minor version, assuming no warnings using N
     "pandas": ">=1.4.1,<1.6",  # "<{N+1}" upper cap
-    "scikit-learn": ">=1.0,<1.3",  # "<{N+1}" upper cap
+    "scikit-learn": ">=1.2.0,<1.4",  # "<{N+1}" upper cap
     "scipy": ">=1.5.4,<1.12",  # "<{N+2}" upper cap
     "psutil": ">=5.7.3,<6",  # Major version cap
     "networkx": ">=3.0,<4",  # Major version cap
