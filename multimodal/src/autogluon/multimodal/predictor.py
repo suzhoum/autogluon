@@ -95,8 +95,8 @@ from .data.infer_types import (
 from .data.preprocess_dataframe import MultiModalFeaturePreprocessor
 from .matcher import MultiModalMatcher
 from .models.utils import get_model_postprocess_fn
-from .optimization.lit_distiller import DistillerLitModule
 from .optimization import LitModule, MMDetLitModule
+from .optimization.lit_distiller import DistillerLitModule
 from .optimization.lit_ner import NerLitModule
 from .optimization.losses import RKDLoss
 from .optimization.utils import (

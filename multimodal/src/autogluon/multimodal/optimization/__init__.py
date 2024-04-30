@@ -1,6 +1,6 @@
+from . import utils
 from .lit_mmdet import MMDetLitModule
 from .lit_module import LitModule
-from . import utils
 from .utils import (
     get_loss_func,
     get_matcher_loss_func,
@@ -9,4 +9,3 @@ from .utils import (
     get_norm_layer_param_names,
     get_trainable_params_efficient_finetune,
 )
-
