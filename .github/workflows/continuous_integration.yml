@@ -5,6 +5,8 @@ on:
     branches:
       - stable
   pull_request_target:
+    branches:
+      - stable
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.event.pull_request.head.sha }}
@@ -34,6 +36,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: List Branch and SHA
+        run: |
+          echo "Branch: ${{ env.BRANCH }}"
+          echo "Commit SHA: ${{ env.SHORT_SHA }}"
       - name: Check if changes beside docs
         uses: dorny/paths-filter@v2
         id: changes
