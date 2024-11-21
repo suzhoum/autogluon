@@ -921,7 +921,11 @@ class TimeSeriesDataFrame(pd.DataFrame, TimeSeriesDataFrameDeprecatedMixin):
         test_data : TimeSeriesDataFrame
             Test portion of the data. Contains the slice ``[:end_idx]`` of each time series in the original dataset.
         """
-        test_data = self.slice_by_timestep(None, end_index)
+        df = self
+        if not df.index.is_monotonic_increasing:
+            logger.warning("Sorting the dataframe index before generating the train/test split.")
+            df = df.sort_index()
+        test_data = df.slice_by_timestep(None, end_index)
         train_data = test_data.slice_by_timestep(None, -prediction_length)
 
         if suffix is not None:
@@ -1063,3 +1067,7 @@ class TimeSeriesDataFrame(pd.DataFrame, TimeSeriesDataFrameDeprecatedMixin):
         # This hides method from IPython autocomplete, but not VSCode autocomplete
         deprecated = ["get_reindexed_view", "to_regular_index"]
         return [d for d in super().__dir__() if d not in deprecated]
+
+    def to_data_frame(self) -> pd.DataFrame:
+        """Convert `TimeSeriesDataFrame` to a `pandas.DataFrame`"""
+        return pd.DataFrame(self)

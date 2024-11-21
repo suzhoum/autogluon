@@ -95,10 +95,16 @@ class AbstractLocalModel(AbstractTimeSeriesModel):
             + self.allowed_local_model_args
         )
 
-    def preprocess(self, data: TimeSeriesDataFrame, is_train: bool = False, **kwargs) -> Any:
+    def preprocess(
+        self,
+        data: TimeSeriesDataFrame,
+        known_covariates: Optional[TimeSeriesDataFrame] = None,
+        is_train: bool = False,
+        **kwargs,
+    ) -> Tuple[TimeSeriesDataFrame, Optional[TimeSeriesDataFrame]]:
         if not self._get_tags()["allow_nan"]:
             data = data.fill_missing_values()
-        return data
+        return data, known_covariates
 
     def _fit(self, train_data: TimeSeriesDataFrame, time_limit: Optional[int] = None, **kwargs):
         self._check_fit_params()
@@ -113,8 +119,11 @@ class AbstractLocalModel(AbstractTimeSeriesModel):
         local_model_args = {}
         # TODO: Move filtering logic to AbstractTimeSeriesModel
         for key, value in raw_local_model_args.items():
-            if key in self.allowed_hyperparameters:
+            if key in self.allowed_local_model_args:
                 local_model_args[key] = value
+            elif key in self.allowed_hyperparameters:
+                # Quietly ignore params in self.allowed_hyperparameters - they are used by AbstractTimeSeriesModel
+                pass
             else:
                 unused_local_model_args.append(key)
 
