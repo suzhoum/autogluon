@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
     branches:
       - master
-  schedule:
-    - cron: '00 02 * * *' #  UTC 2:00 AM every day
 
 env:
   AG_BRANCH_NAME: master
