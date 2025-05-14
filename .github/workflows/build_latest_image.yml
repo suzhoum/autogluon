@@ -2,8 +2,6 @@ name: Build Latest Image
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "59 8 * * *"
 
 permissions:
   id-token: write
